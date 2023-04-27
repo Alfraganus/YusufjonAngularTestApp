@@ -1,0 +1,22 @@
+<!-- src/app/semesters/semesters.component.html -->
+<h2 class="text-center">Semesters</h2>
+<div *ngIf="semesters">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let semester of semesters">
+      <td>{{ semester.id }}</td>
+      <td>{{ semester.name }}</td>
+      <td>{{ semester.startDate | date }}</td>
+      <td>{{ semester.endDate | date }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

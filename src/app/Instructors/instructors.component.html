@@ -1,6 +1,25 @@
-<h2>Instructors</h2>
-<ul>
-  <li *ngFor="let instructor of instructors">
-    {{ instructor.name }} ({{ instructor.neptunCode }})
-  </li>
-</ul>
+<h2 class="text-center">Instructors</h2>
+<div class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Neptun code</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Position</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let instructor of instructors">
+      <td>{{ instructor.id }}</td>
+      <td>{{ instructor.neptunCode }}</td>
+      <td>{{ instructor.name }}</td>
+      <td>{{ instructor.email }}</td>
+      <td>{{ instructor.position }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+

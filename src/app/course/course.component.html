@@ -1,0 +1,24 @@
+<!-- src/app/course/course.component.html -->
+<h2 class="text-center">Courses</h2>
+<div *ngIf="courses">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Credit Value</th>
+      <th>Responsible Department</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let course of courses">
+      <td>{{ course.id }}</td>
+      <td>{{ course.name }}</td>
+      <td>{{ course.code }}</td>
+      <td>{{ course.creditValue }}</td>
+      <td>{{ course.responsibleDepartment }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

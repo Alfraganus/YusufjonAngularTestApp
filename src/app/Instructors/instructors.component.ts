@@ -5,8 +5,8 @@ import { InstructorsService } from '../service/instructors.service';
 @Component({
   selector: 'app-instructors',
   templateUrl: 'instructors.component.html',
-  styleUrls: ['./instructors.component.css']
 })
+
 export class InstructorsComponent implements OnInit {
   instructors: Instructor[];
 

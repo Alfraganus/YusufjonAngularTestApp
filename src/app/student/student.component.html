@@ -1,0 +1,24 @@
+<!-- src/app/students/students.component.html -->
+<h2 class="text-center">Students</h2>
+<div *ngIf="students">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Neptun Code</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Department</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let student of students">
+      <td>{{ student.id }}</td>
+      <td>{{ student.neptunCode }}</td>
+      <td>{{ student.name }}</td>
+      <td>{{ student.email }}</td>
+      <td>{{ student.department }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
