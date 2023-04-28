@@ -18,12 +18,14 @@ import {CourseComponent} from "./course/course.component";
 import {SemestersComponent} from "./semesters/semesters.component";
 import {StudentsComponent} from "./student/student.component";
 import {StudentsService} from "./service/students.service";
+import {TaughtCoursesComponent} from "./taught-courses/taught-courses.component";
 
 const appRoutes: Routes = [
   { path: '', component: InstructorsComponent, canActivate: [AuthGuard] },
   { path: 'course', component: CourseComponent },
   { path: 'semester', component: SemestersComponent },
   { path: 'student', component: StudentsComponent },
+  { path: 'taught-course', component: TaughtCoursesComponent },
   { path: 'login', component: LoginComponent },
   // other routes
 ];
@@ -32,6 +34,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
+    TaughtCoursesComponent,
     StudentsComponent,
     CourseComponent,
     SemestersComponent,
