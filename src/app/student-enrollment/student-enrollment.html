@@ -1,0 +1,23 @@
+<!-- src/app/student/student.component.html -->
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>Students</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let course of courses">
+      <td>{{ course.name }}</td>
+      <td>
+        <ul class="list-unstyled mb-0">
+          <li *ngFor="let student of courseStudentsMap.get(course.id)">
+            {{ student.name }}
+          </li>
+        </ul>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

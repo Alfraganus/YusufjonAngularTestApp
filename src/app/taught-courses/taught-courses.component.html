@@ -1,0 +1,22 @@
+<div>
+  <label for="instructor">Instructor:</label>
+  <select id="instructor" [(ngModel)]="selectedInstructorId" (ngModelChange)="onInstructorChange(selectedInstructorId)">
+
+  <option value="">Select an instructor</option>
+    <option *ngFor="let instructor of instructors" [value]="instructor.id">{{ instructor.name }}</option>
+  </select>
+
+  <label for="semester">Semester:</label>
+  <select id="semester" [(ngModel)]="selectedSemesterId" (ngModelChange)="onSemesterChange(selectedSemesterId)">
+    <option value="">Select a semester</option>
+    <option *ngFor="let semester of semesters" [value]="semester.id">{{ semester.name }}</option>
+  </select>
+</div>
+
+<div *ngIf="taughtCourses.length > 0">
+  <h2>Subjects taught by the selected instructor in the selected semester:</h2>
+  <ul>
+    <li *ngFor="let taughtCourse of taughtCourses">{{ getCourseName(taughtCourse.courseId,'name') }}</li>
+    <li *ngFor="let taughtCourse of taughtCourses">{{ getCourseName(taughtCourse.courseId,'code') }}</li>
+  </ul>
+</div>

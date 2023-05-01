@@ -3,6 +3,8 @@ import { Instructor } from './models/instructor';
 import { Course } from './models/course';
 import { Student } from './models/student';
 import { Semester } from './models/semester';
+import {TaughtCourse} from "./models/TaughtCourse";
+import {Enrollment} from "./models/enrollment";
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
@@ -49,6 +51,19 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 2, name: '2022/23/2', startDate: new Date('2023-02-01'), endDate: new Date('2023-06-30') },
       // more semesters
     ];
-    return {instructors, courses, students, semesters};
+    const taughtCourses: TaughtCourse[] = [
+      { id: 1, instructorId: 1, courseId: 2, semesterId: 1 },
+      { id: 2, instructorId: 1, courseId: 2, semesterId: 1 },
+      { id: 3, instructorId: 2, courseId: 1, semesterId: 2 },
+      // more taught courses
+    ];
+
+    const enrollments: Enrollment[] = [
+      { id: 1, studentId: 1, courseId: 1, semesterId: 1 },
+      { id: 2, studentId: 1, courseId: 2, semesterId: 1 },
+      { id: 3, studentId: 2, courseId: 1, semesterId: 1 },
+      // more enrollments
+    ];
+    return {instructors, courses, students, semesters,taughtCourses,enrollments };
   }
 }
