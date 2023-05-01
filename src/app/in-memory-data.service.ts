@@ -4,6 +4,7 @@ import { Course } from './models/course';
 import { Student } from './models/student';
 import { Semester } from './models/semester';
 import {TaughtCourse} from "./models/TaughtCourse";
+import {Enrollment} from "./models/enrollment";
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
@@ -56,6 +57,13 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 3, instructorId: 2, courseId: 1, semesterId: 2 },
       // more taught courses
     ];
-    return {instructors, courses, students, semesters,taughtCourses };
+
+    const enrollments: Enrollment[] = [
+      { id: 1, studentId: 1, courseId: 1, semesterId: 1 },
+      { id: 2, studentId: 1, courseId: 2, semesterId: 1 },
+      { id: 3, studentId: 2, courseId: 1, semesterId: 1 },
+      // more enrollments
+    ];
+    return {instructors, courses, students, semesters,taughtCourses,enrollments };
   }
 }
