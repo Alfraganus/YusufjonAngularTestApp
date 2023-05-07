@@ -1,5 +1,28 @@
 <!-- src/app/students/students.component.html -->
+
+<!-- Add this form for adding new students -->
+<form #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)">
+  <div>
+    <label for="neptunCode">Neptun Code</label>
+    <input type="text" id="neptunCode" name="neptunCode" ngModel required />
+  </div>
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" ngModel required />
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" ngModel required />
+  </div>
+  <div>
+    <label for="department">Department</label>
+    <input type="text" id="department" name="department" ngModel required />
+  </div>
+  <button type="submit" [disabled]="!studentForm.valid">Add Student</button>
+</form>
+
 <h2 class="text-center">Students</h2>
+
 <div *ngIf="students">
   <table class="table table-striped">
     <thead>
@@ -9,15 +32,42 @@
       <th>Name</th>
       <th>Email</th>
       <th>Department</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let student of students">
-      <td>{{ student.id }}</td>
-      <td>{{ student.neptunCode }}</td>
-      <td>{{ student.name }}</td>
-      <td>{{ student.email }}</td>
-      <td>{{ student.department }}</td>
+      <ng-container *ngIf="!editingStates.get(student.id)">
+        <td>{{ student.id }}</td>
+        <td>{{ student.neptunCode }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.department }}</td>
+        <td>
+          <button (click)="editingStates.set(student.id, true)">Edit</button>
+        </td>
+      </ng-container>
+
+      <!-- Add this form for editing a student -->
+      <ng-container *ngIf="editingStates.get(student.id)">
+        <td>{{ student.id }}</td>
+        <td>
+          <input type="text" [(ngModel)]="student.neptunCode" name="neptunCode" required />
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="student.name" name="name" required />
+        </td>
+        <td>
+          <input type="email" [(ngModel)]="student.email" name="email" required />
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="student.department" name="department" required />
+        </td>
+        <td>
+          <button (click)="onUpdate(studentForm, student.id); editingStates.set(student.id, false)">Save</button>
+          <button (click)="editingStates.set(student.id, false)">Cancel</button>
+        </td>
+      </ng-container>
     </tr>
     </tbody>
   </table>

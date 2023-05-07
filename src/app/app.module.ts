@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InstructorsService} from "./service/instructors.service";
 import {CoursesService} from "./service/courses.service";
 import {SemestersService} from "./service/semesters.service";
@@ -23,11 +23,11 @@ import {StudentEnrollmentComponent} from "./student-enrollment/student.enrollmen
 
 const appRoutes: Routes = [
   { path: '', component: InstructorsComponent, canActivate: [AuthGuard] },
-  { path: 'course', component: CourseComponent },
-  { path: 'semester', component: SemestersComponent },
-  { path: 'student', component: StudentsComponent },
-  { path: 'taught-course', component: TaughtCoursesComponent },
-  { path: 'student-enrollment', component: StudentEnrollmentComponent },
+  { path: 'course', component: CourseComponent, canActivate: [AuthGuard]  },
+  { path: 'semester', component: SemestersComponent, canActivate: [AuthGuard]  },
+  { path: 'student', component: StudentsComponent, canActivate: [AuthGuard]  },
+  { path: 'taught-course', component: TaughtCoursesComponent, canActivate: [AuthGuard]  },
+  { path: 'student-enrollment', component: StudentEnrollmentComponent , canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   // other routes
 ];
@@ -42,7 +42,7 @@ const appRoutes: Routes = [
     SemestersComponent,
     HeaderComponent,
     StudentEnrollmentComponent,
-    InstructorsComponent
+    InstructorsComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +51,7 @@ const appRoutes: Routes = [
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [InstructorsService, CoursesService, StudentsService, SemestersService,InMemoryDataService],

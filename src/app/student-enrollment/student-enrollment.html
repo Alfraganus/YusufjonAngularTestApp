@@ -1,15 +1,35 @@
 <!-- src/app/student/student.component.html -->
-<div class="table-responsive">
+<div class="table-responsive" style="padding: 0 40px 0 40px">
   <table class="table table-bordered table-hover">
     <thead>
     <tr>
-      <th>Course Name</th>
-      <th>Students</th>
+      <th>
+        Course Name
+      </th>
+      <th>
+        Semester
+      </th>
+      <th>
+        Students
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <input class="form-control"  (input)="onFilterChange($any($event.target).value, 'courseName')" placeholder="Filter by course name">
+      </th>
+      <th>
+        <input class="form-control"  (input)="onFilterChange($any($event.target).value, 'semester')" placeholder="Filter by semester">
+      </th>
+      <th>
+        <input  class="form-control" (input)="onFilterChange($any($event.target).value, 'students')" placeholder="Filter by student">
+      </th>
     </tr>
     </thead>
+
     <tbody>
-    <tr *ngFor="let course of courses">
+    <tr *ngFor="let course of filteredCourses">
       <td>{{ course.name }}</td>
+      {{ findSemesterByCourse(course.id)?.name }}
       <td>
         <ul class="list-unstyled mb-0">
           <li *ngFor="let student of courseStudentsMap.get(course.id)">

@@ -11,6 +11,7 @@ import {CoursesService} from "../service/courses.service";
 @Component({
   selector: 'app-taught-courses',
   templateUrl: './taught-courses.component.html',
+  styleUrls: ['style.css']
 })
 export class TaughtCoursesComponent implements OnInit {
   taughtCourses: TaughtCourse[] = [];
@@ -20,7 +21,9 @@ export class TaughtCoursesComponent implements OnInit {
 
   selectedInstructorId: number ;
   selectedSemesterId: number | null = null;
-
+  filteredTaughtCourses: TaughtCourse[]; // Add this line to store filtered taught courses
+  courseNameFilter = '';
+  courseCodeFilter = '';
   constructor(
     private taughtCourseService: TaughtCourseService,
     private instructorsService: InstructorsService,
@@ -29,10 +32,22 @@ export class TaughtCoursesComponent implements OnInit {
   ) {
   }
 
+
+  applyFilter(): void {
+    this.filteredTaughtCourses = this.taughtCourses.filter((taughtCourse) => {
+      const courseName = this.getCourseName(taughtCourse.courseId, 'name');
+      const courseCode = this.getCourseName(taughtCourse.courseId, 'code');
+      return (
+        courseName.toLowerCase().includes(this.courseNameFilter.toLowerCase()) &&
+        courseCode.toLowerCase().includes(this.courseCodeFilter.toLowerCase())
+      );
+    });
+  }
   ngOnInit(): void {
     this.getInstructors();
     this.getSemesters();
     this.getCourses();
+    this.filteredTaughtCourses = this.taughtCourses;
   }
 
   getInstructors(): void {
@@ -102,11 +117,17 @@ export class TaughtCoursesComponent implements OnInit {
     }
   }
 
-  onSemesterChange(semesterId: number): void {
-    // console.log('semester '+semesterId)
-    this.selectedSemesterId = semesterId;
-    if (this.selectedInstructorId) {
-       this.getTaughtCourses(this.selectedInstructorId, this.selectedSemesterId);
+  onSemesterChange(selectedSemesterId: number): void {
+    if (selectedSemesterId && this.selectedInstructorId) {
+      this.taughtCourseService
+        .getTaughtCourses(this.selectedInstructorId, selectedSemesterId)
+        .subscribe((taughtCourses) => {
+          this.taughtCourses = taughtCourses;
+          this.filteredTaughtCourses = [...taughtCourses]; // Add this line
+        });
+    } else {
+      this.taughtCourses = [];
+      this.filteredTaughtCourses = []; // Add this line
     }
   }
 
