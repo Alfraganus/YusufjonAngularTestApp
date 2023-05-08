@@ -1,4 +1,25 @@
 <!-- src/app/course/course.component.html -->
+
+    <form (ngSubmit)="createCourse(name.value, code.value, parseInt(creditValue.value), responsibleDepartment.value); name.value=''; code.value=''; creditValue.value=''; responsibleDepartment.value=''">
+      <!-- ...form content... -->
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input #name class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="code">Code:</label>
+    <input #code class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="creditValue">Credit Value:</label>
+    <input #creditValue type="number" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="responsibleDepartment">Responsible Department:</label>
+    <input #responsibleDepartment class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Course</button>
+</form>
 <h2 class="text-center">Courses</h2>
 <div *ngIf="courses">
   <table class="table table-striped">
@@ -9,15 +30,32 @@
       <th>Code</th>
       <th>Credit Value</th>
       <th>Responsible Department</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let course of courses">
-      <td>{{ course.id }}</td>
-      <td>{{ course.name }}</td>
-      <td>{{ course.code }}</td>
-      <td>{{ course.creditValue }}</td>
-      <td>{{ course.responsibleDepartment }}</td>
+      <ng-container *ngIf="editCourse && editCourse.id === course.id; else normalRow">
+        <td>{{ course.id }}</td>
+        <td><input [(ngModel)]="editCourse.name" class="form-control"></td>
+        <td><input [(ngModel)]="editCourse.code" class="form-control"></td>
+        <td><input [(ngModel)]="editCourse.creditValue" type="number" class="form-control"></td>
+        <td><input [(ngModel)]="editCourse.responsibleDepartment" class="form-control"></td>
+        <td>
+          <button (click)="updateCourse(editCourse)" class="btn btn-primary">Save</button>
+          <button (click)="toggleEditForm(null)" class="btn btn-secondary">Cancel</button>
+        </td>
+      </ng-container>
+      <ng-template #normalRow>
+        <td>{{ course.id }}</td>
+        <td>{{ course.name }}</td>
+        <td>{{ course.code }}</td>
+        <td>{{ course.creditValue }}</td>
+        <td>{{ course.responsibleDepartment }}</td>
+        <td>
+          <button (click)="toggleEditForm(course)" class="btn btn-primary">Edit</button>
+        </td>
+      </ng-template>
     </tr>
     </tbody>
   </table>
