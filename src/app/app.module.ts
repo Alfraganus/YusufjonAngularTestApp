@@ -9,7 +9,7 @@ import {CoursesService} from "./service/courses.service";
 import {SemestersService} from "./service/semesters.service";
 import {InstructorsComponent} from "./Instructors/instructors.component";
 import {RouterModule, Routes} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {InMemoryDataService} from "./in-memory-data.service";
 import {HttpClientInMemoryWebApiModule, InMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {AuthGuard} from "./auth.guard";
@@ -21,6 +21,7 @@ import {StudentsService} from "./service/students.service";
 import {TaughtCoursesComponent} from "./taught-courses/taught-courses.component";
 import {StudentEnrollmentComponent} from "./student-enrollment/student.enrollment";
 import {RegisterComponent} from "./register/RegisterComponent";
+import {AuthInterceptorService} from "../auth-interceptor.service";
 
 const appRoutes: Routes = [
   { path: '', component: InstructorsComponent, canActivate: [AuthGuard] },
@@ -56,7 +57,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [InstructorsService, CoursesService, StudentsService, SemestersService,InMemoryDataService],
+  providers: [InstructorsService, CoursesService, StudentsService, SemestersService,InMemoryDataService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
