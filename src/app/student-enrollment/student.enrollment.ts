@@ -5,12 +5,16 @@ import { Course } from '../models/course';
 import { StudentsService } from '../service/students.service';
 import { InMemoryDataService } from '../in-memory-data.service';
 import {Semester} from "../models/semester";
+import {Enrollment} from "../models/enrollment";
 
 @Component({
   selector: 'app-student-enrollment', // updated component selector
   templateUrl: 'student-enrollment.html',
 })
+
 export class StudentEnrollmentComponent implements OnInit { // updated component class name
+  model: Enrollment = { id: null, studentId: null, courseId: null, semesterId: null };
+
   students: Student[];
   courses: Course[];
   semesters: Semester[];
@@ -22,9 +26,31 @@ export class StudentEnrollmentComponent implements OnInit { // updated component
     private inMemoryDataService: InMemoryDataService
   ) {}
 
+  onSubmit(formValue: any): void {
+    // Generate a new id for the enrollment
+    const enrollments = this.inMemoryDataService.createDb().enrollments;
+    const newId = enrollments.length ? Math.max(...enrollments.map(e => e.id)) + 1 : 1;
+
+    // Create the new enrollment
+    const newEnrollment: Enrollment = {
+      id: newId,
+      studentId: formValue.student,
+      courseId: formValue.course,
+      semesterId: formValue.semester
+    };
+    this.inMemoryDataService.addEnrollment(newEnrollment);
+
+    // Update the course-students map
+    this.createCourseStudentsMap();
+
+    // Reset the form
+    this.model = { id: null, studentId: null, courseId: null, semesterId: null };
+  }
+
   async  ngOnInit() {
     await this.getStudents()
     this.getCourses();
+    this.getSemesters();
     this.createCourseStudentsMap();
     this.filteredCourses = this.courses;
   }

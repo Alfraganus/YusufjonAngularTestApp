@@ -1,4 +1,26 @@
 <!-- src/app/student/student.component.html -->
+<form (submit)="onSubmit(form.value)" #form="ngForm">
+  <div class="form-group">
+    <label for="course">Course</label>
+    <select class="form-control" id="course" [(ngModel)]="model.courseId" name="course" required>
+      <option *ngFor="let course of courses" [value]="course.id">{{ course.name }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="semester">Semester</label>
+    <select class="form-control" id="semester" [(ngModel)]="model.semesterId" name="semester" required>
+      <option *ngFor="let semester of semesters" [value]="semester.id">{{ semester.name }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="student">Student</label>
+    <select class="form-control" id="student" [(ngModel)]="model.studentId" name="student" required>
+      <option *ngFor="let student of students" [value]="student.id">{{ student.name }}</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-success">Enroll</button>
+</form>
+
 <div class="table-responsive" style="padding: 0 40px 0 40px">
   <table class="table table-bordered table-hover">
     <thead>

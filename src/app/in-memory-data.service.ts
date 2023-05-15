@@ -7,6 +7,13 @@ import {TaughtCourse} from "./models/TaughtCourse";
 import {Enrollment} from "./models/enrollment";
 
 export class InMemoryDataService implements InMemoryDbService {
+
+  addEnrollment(enrollment: Enrollment) {
+    const db = this.createDb();
+    db.enrollments.push(enrollment);
+    return db;
+  }
+
   createDb() {
     const instructors: Instructor[] = [
       { id: 1, neptunCode: 'A123', name: 'John Doe', email: 'john.doe@example.com', position: 'associate professor' },
