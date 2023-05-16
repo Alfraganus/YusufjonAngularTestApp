@@ -1,5 +1,5 @@
 <!-- instructors.component.html -->
-<div class="container">
+<div class="container" style="padding-left: 100px;padding-right: 50px">
   <h3>{{ selectedInstructor ? 'Update' : 'Create' }} Instructor</h3>
   <form [formGroup]="instructorForm" (ngSubmit)="onSave()" class="row g-3">
     <div class="col-md-3">
@@ -23,7 +23,7 @@
     </div>
   </form>
   <hr>
-</div>
+
 
 <h2 class="text-center">Instructors</h2>
 <div class="container">
@@ -69,4 +69,5 @@
     </tr>
     </tbody>
   </table>
+</div>
 </div>

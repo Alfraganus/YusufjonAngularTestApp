@@ -1,26 +1,35 @@
-<!-- src/app/course/course.component.html -->
+<div style="padding-left: 100px;padding-right: 100px">
+  <form (ngSubmit)="createCourse(name.value, code.value, parseInt(creditValue.value), responsibleDepartment.value); name.value=''; code.value=''; creditValue.value=''; responsibleDepartment.value=''" class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input #name class="form-control" required>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="code">Code:</label>
+        <input #code class="form-control" required>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="creditValue">Credit Value:</label>
+        <input #creditValue type="number" class="form-control" required>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="responsibleDepartment">Responsible Department:</label>
+        <input #responsibleDepartment class="form-control" required>
+      </div>
+    </div>
+    <div class="col-md-12 mt-3 mb-3">
+      <button type="submit" class="btn btn-primary">Create Course</button>
+    </div>
+  </form>
 
-    <form (ngSubmit)="createCourse(name.value, code.value, parseInt(creditValue.value), responsibleDepartment.value); name.value=''; code.value=''; creditValue.value=''; responsibleDepartment.value=''">
-      <!-- ...form content... -->
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input #name class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label for="code">Code:</label>
-    <input #code class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label for="creditValue">Credit Value:</label>
-    <input #creditValue type="number" class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label for="responsibleDepartment">Responsible Department:</label>
-    <input #responsibleDepartment class="form-control" required>
-  </div>
-  <button type="submit" class="btn btn-primary">Create Course</button>
-</form>
-<h2 class="text-center">Courses</h2>
+  <h2 class="text-center">Courses</h2>
 <div *ngIf="courses">
   <table class="table table-striped">
     <thead>
@@ -59,4 +68,5 @@
     </tr>
     </tbody>
   </table>
+</div>
 </div>

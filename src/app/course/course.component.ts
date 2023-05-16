@@ -17,6 +17,10 @@ export class CourseComponent implements OnInit {
   creditValueFilter = '';
   responsibleDepartmentFilter = '';
   sortOrder: string[] = ['id'];
+  searchTerm: string;
+  sortKey: string;
+  sortReverse: boolean = false;
+
 
   constructor(private coursesService: CoursesService) { }
 
@@ -24,14 +28,20 @@ export class CourseComponent implements OnInit {
     this.getCourses();
   }
 
-  applyFilters(): void {
-    this.filteredCourses = this.courses.filter(course =>
-      course.name.toLowerCase().includes(this.nameFilter.toLowerCase()) &&
-      course.code.toLowerCase().includes(this.codeFilter.toLowerCase()) &&
-      course.creditValue.toString().includes(this.creditValueFilter) &&
-      course.responsibleDepartment.toLowerCase().includes(this.responsibleDepartmentFilter.toLowerCase())
-    );
-    this.sortFilteredCourses();
+  sort(key) {
+    if (this.sortKey === key) {
+      this.sortReverse = !this.sortReverse;
+    } else {
+      this.sortReverse = false;
+    }
+    this.sortKey = key;
+  }
+  sortedCourses() {
+    return this.courses.sort((a, b) => {
+      if (a[this.sortKey] < b[this.sortKey]) return this.sortReverse ? 1 : -1;
+      if (a[this.sortKey] > b[this.sortKey]) return this.sortReverse ? -1 : 1;
+      return 0;
+    });
   }
 
   sortFilteredCourses(): void {

@@ -1,22 +1,31 @@
 <!-- src/app/semesters/semesters.component.html -->
-
+<div style="padding-left: 100px;padding-right: 100px">
 <h2 class="text-center">Semesters</h2>
 
-<form (ngSubmit)="saveSemester()">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" [(ngModel)]="selectedSemester.name" name="name" required>
-  </div>
-  <div class="form-group">
-    <label for="startDate">Start Date</label>
-    <input type="date" class="form-control" id="startDate" [(ngModel)]="selectedSemester.startDate" name="startDate" required>
-  </div>
-  <div class="form-group">
-    <label for="endDate">End Date</label>
-    <input type="date" class="form-control" id="endDate" [(ngModel)]="selectedSemester.endDate" name="endDate" required>
-  </div>
-  <button type="submit" class="btn btn-primary">{{editing ? 'Update' : 'Add'}} Semester</button>
-</form>
+  <form (ngSubmit)="saveSemester()" class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="selectedSemester.name" name="name" required>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input type="date" class="form-control" id="startDate" [(ngModel)]="selectedSemester.startDate" name="startDate" required>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input type="date" class="form-control" id="endDate" [(ngModel)]="selectedSemester.endDate" name="endDate" required>
+      </div>
+    </div>
+    <div class="col-md-12 mt-4 mb-3">
+      <button type="submit" class="btn btn-primary">{{editing ? 'Update' : 'Add'}} Semester</button>
+    </div>
+  </form>
+
 
 <div *ngIf="semesters">
   <table class="table table-striped">
@@ -39,5 +48,6 @@
     </tr>
     </tbody>
   </table>
+</div>
 </div>
 

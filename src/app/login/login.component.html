@@ -1,13 +1,27 @@
-<form (ngSubmit)="login()">
-  <div>
-    <label for="username">Username:</label>
-    <input [(ngModel)]="username" name="username" required />
+<div class="container" style="margin-top: 100px">
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Log in to Yusufjon's angular assignment</h5>
+          <form (ngSubmit)="login()">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username:</label>
+              <input [(ngModel)]="username" name="username" id="username" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password:</label>
+              <input [(ngModel)]="password" name="password" type="password" id="password" class="form-control" required />
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Log in</button>
+              <button type="button" class="btn btn-info ms-2" [routerLink]="'/register-component'">Register</button>
+            </div>
+          </form>
+          <!-- Add this block to display the login error message -->
+          <div *ngIf="loginError" class="alert alert-danger mt-3">{{ loginError }}</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-    <label for="password">Password:</label>
-    <input [(ngModel)]="password" name="password" type="password" required />
-  </div>
-  <button type="submit">Log in</button>
-</form>
-<!-- Add this block to display the login error message -->
-<div *ngIf="loginError" class="error-message">{{ loginError }}</div>
+</div>
