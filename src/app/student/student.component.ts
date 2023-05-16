@@ -12,6 +12,8 @@ import { NgForm } from '@angular/forms';
 export class StudentsComponent implements OnInit {
   students: Student[];
   editingStates: Map<number, boolean> = new Map<number, boolean>(); // Add this line
+  sortKey: string = '';
+  sortDirection: number = 1;  // 1 for ascending, -1 for descendin
   constructor(private studentsService: StudentsService) {}
 
   onSubmit(form: NgForm): void {
@@ -21,7 +23,27 @@ export class StudentsComponent implements OnInit {
       form.reset(); // Reset the form after successful submission
     });
   }
+  sort(key: string): void {
+    if (this.sortKey === key) {
+      this.sortDirection = -this.sortDirection;
+    } else {
+      this.sortKey = key;
+      this.sortDirection = 1;
+    }
+  }
 
+  // Add this method
+  sortedStudents(): Student[] {
+    return this.students.sort((a, b) => {
+      if (a[this.sortKey] < b[this.sortKey]) {
+        return -1 * this.sortDirection;
+      }
+      if (a[this.sortKey] > b[this.sortKey]) {
+        return 1 * this.sortDirection;
+      }
+      return 0;
+    });
+  }
   onUpdate(form: NgForm, studentId: number): void {
     const updatedStudent: Student = { ...form.value, id: studentId };
     this.studentsService.updateStudent(updatedStudent).subscribe((updated) => {

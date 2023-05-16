@@ -1,4 +1,5 @@
 <!-- src/app/students/students.component.html -->
+<div  style="margin-left: 100px">
 <div class="container">
   <!-- Add this form for adding new students -->
   <form #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)" class="py-5">
@@ -30,16 +31,31 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>ID</th>
-        <th>Neptun Code</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Department</th>
+        <th class="text-center">
+          ID
+          <button class="form-control" (click)="sort('id')">Sort</button>
+        </th>
+        <th class="text-center">
+          Neptun Code
+          <button class="form-control" (click)="sort('neptunCode')">Sort</button>
+        </th>
+        <th class="text-center">
+          Name
+          <button class="form-control" (click)="sort('name')">Sort</button>
+        </th>
+        <th class="text-center">
+          Email
+          <button class="form-control" (click)="sort('email')">Sort</button>
+        </th>
+        <th class="text-center">
+          Department
+          <button class="form-control" (click)="sort('department')">Sort</button>
+        </th>
         <th>Actions</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let student of students">
+      <tr *ngFor="let student of sortedStudents()">
         <ng-container *ngIf="!editingStates.get(student.id)">
           <td>{{ student.id }}</td>
           <td>{{ student.neptunCode }}</td>
@@ -75,3 +91,4 @@
       </tbody>
     </table>
   </div>
+</div>

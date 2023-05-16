@@ -1,6 +1,6 @@
 <!-- src/app/taught-course/taught-course.component.html -->
 <!-- ... -->
-<div style="padding: 50px">
+
   <h2 class="text-center">Select dropdown for getting the data</h2>
   <div class="dropdown-container">
     <label for="instructor">Instructor:</label>
@@ -15,7 +15,7 @@
       <option *ngFor="let semester of semesters" [value]="semester.id">{{ semester.name }}</option>
     </select>
   </div>
-  
+
 <div *ngIf="taughtCourses.length > 0">
   <h2>Subjects taught by the selected instructor in the selected semester:</h2>
   <table class="table table-bordered table-hover">
@@ -36,6 +36,5 @@
     </tr>
     </tbody>
   </table>
-</div>
 </div>
 <!-- ... -->
