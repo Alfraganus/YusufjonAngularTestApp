@@ -34,16 +34,33 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Code</th>
-      <th>Credit Value</th>
-      <th>Responsible Department</th>
+
+      <th class="text-center">
+        ID
+        <button class="form-control"  (click)="sort('id')">Sort</button>
+      </th>
+
+      <th>
+        Name
+        <button class="form-control"  (click)="sort('name')">Sort</button>
+      </th>
+      <th>
+        Code
+        <button class="form-control"  (click)="sort('code')">Sort</button>
+      </th>
+      <th>
+        Credit Value
+        <button class="form-control"  (click)="sort('creditValue')">Sort</button>
+      </th>
+      <th>
+        Responsible Department
+        <button class="form-control"  (click)="sort('responsibleDepartment')">Sort</button>
+      </th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let course of courses">
+    <tr *ngFor="let course of sortedCourses()">
       <ng-container *ngIf="editCourse && editCourse.id === course.id; else normalRow">
         <td>{{ course.id }}</td>
         <td><input [(ngModel)]="editCourse.name" class="form-control"></td>

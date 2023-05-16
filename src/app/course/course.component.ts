@@ -22,6 +22,7 @@ export class CourseComponent implements OnInit {
   sortReverse: boolean = false;
 
 
+
   constructor(private coursesService: CoursesService) { }
 
   ngOnInit() {
