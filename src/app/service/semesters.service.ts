@@ -14,6 +14,13 @@ export class SemestersService {
   getSemesters(): Observable<Semester[]> {
     return this.http.get<Semester[]>(this.semestersUrl);
   }
+  addSemester(semester: Semester): Observable<Semester> {
+    return this.http.post<Semester>(this.semestersUrl, semester);
+  }
+
+  updateSemester(semester: Semester): Observable<Semester> {
+    return this.http.put<Semester>(`${this.semestersUrl}/${semester.id}`, semester);
+  }
 
   // Add other methods like addSemester, updateSemester, and deleteSemester
 }

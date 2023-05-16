@@ -31,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'taught-course', component: TaughtCoursesComponent, canActivate: [AuthGuard] },
   { path: 'student-enrollment', component: StudentEnrollmentComponent, canActivate: [AuthGuard] },
   { path: 'register-component', component: RegisterComponent},
+ 
   { path: 'login', component: LoginComponent },
   // other routes
 ];
@@ -46,7 +47,7 @@ const appRoutes: Routes = [
     RegisterComponent,
     HeaderComponent,
     StudentEnrollmentComponent,
-    InstructorsComponent
+    InstructorsComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
   ],
