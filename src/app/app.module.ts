@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InstructorsService} from "./service/instructors.service";
 import {CoursesService} from "./service/courses.service";
 import {SemestersService} from "./service/semesters.service";
@@ -56,6 +56,7 @@ const appRoutes: Routes = [
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     FormsModule,
     RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
   ],
   providers: [InstructorsService, CoursesService, StudentsService, SemestersService,InMemoryDataService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
