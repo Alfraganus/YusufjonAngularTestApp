@@ -1,12 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import {User} from "./User";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
+  private users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+
+  register(user: User): Observable<User> {
+    // Check if a user with the same Neptun Code already exists.
+    const existingUser = this.users.find(u => u.neptunCode === user.neptunCode);
+    if (existingUser) {
+      throw new Error('A user with this Neptun Code already exists.');
+    }
+
+    // Add the new user and save the users array back to local storage.
+    this.users.push(user);
+    localStorage.setItem('users', JSON.stringify(this.users));
+
+    return of(user);
+  }
+
+
   login(username: string, password: string): Observable<string> {
-    if (username === 'user' && password === 'password') {
+    const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.neptunCode === username && u.password === password);
+
+    if ((username === 'user' && password === 'password') || user) {
       const header = {
         alg: 'HS256',
         typ: 'JWT',
@@ -26,9 +48,11 @@ export class AuthService {
     } else {
       return of(null);
     }
-    console.log(localStorage.getItem('token'))
   }
 
+  logout(): void {
+    localStorage.removeItem('token');
+  }
   isLoggedIn(): boolean {
     const token = localStorage.getItem('token');
     if (token) {
