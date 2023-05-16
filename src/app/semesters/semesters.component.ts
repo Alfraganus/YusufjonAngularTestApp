@@ -11,12 +11,28 @@ export class SemestersComponent implements OnInit {
   semesters: Semester[];
   selectedSemester: Semester = new Semester();  // Object to hold form data
   editing = false;
+  sortKey: string = '';
+  sortReverse: boolean = false;
   constructor(private semestersService: SemestersService) { }
 
   ngOnInit() {
     this.getSemesters();
   }
+  sort(key) {
+    if (this.sortKey === key) {
+      this.sortReverse = !this.sortReverse;
+    } else {
+      this.sortReverse = false;
+    }
+    this.sortKey = key;
+    this.semesters.sort(this.compare);
+  }
 
+  compare = (a, b) => {
+    if (a[this.sortKey] < b[this.sortKey]) return this.sortReverse ? 1 : -1;
+    if (a[this.sortKey] > b[this.sortKey]) return this.sortReverse ? -1 : 1;
+    return 0;
+  }
   saveSemester(): void {
     if (this.editing) {
       this.updateSemester();
@@ -31,7 +47,16 @@ export class SemestersComponent implements OnInit {
       this.selectedSemester = new Semester();
     });
   }
+  sortedSemesters() {
+    let semesters = [...this.semesters]; // create a copy of the semesters array
 
+    // sort the semesters
+    return semesters.sort((a, b) => {
+      if (a[this.sortKey] < b[this.sortKey]) return this.sortReverse ? 1 : -1;
+      if (a[this.sortKey] > b[this.sortKey]) return this.sortReverse ? -1 : 1;
+      return 0;
+    });
+  }
   updateSemester(): void {
     this.semestersService.updateSemester(this.selectedSemester).subscribe(() => {
       const index = this.semesters.findIndex(s => s.id === this.selectedSemester.id);

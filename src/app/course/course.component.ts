@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../models/course';
 import {CoursesService} from "../service/courses.service";
 import {Observable} from "rxjs";
+import {Instructor} from "../models/instructor";
 
 @Component({
   selector: 'app-course',

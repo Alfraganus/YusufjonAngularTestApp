@@ -1,53 +1,42 @@
-<!-- src/app/semesters/semesters.component.html -->
 <div style="padding-left: 100px;padding-right: 100px">
-<h2 class="text-center">Semesters</h2>
+  <h2 class="text-center">Semesters</h2>
 
   <form (ngSubmit)="saveSemester()" class="row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" [(ngModel)]="selectedSemester.name" name="name" required>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="startDate">Start Date</label>
-        <input type="date" class="form-control" id="startDate" [(ngModel)]="selectedSemester.startDate" name="startDate" required>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="endDate">End Date</label>
-        <input type="date" class="form-control" id="endDate" [(ngModel)]="selectedSemester.endDate" name="endDate" required>
-      </div>
-    </div>
-    <div class="col-md-12 mt-4 mb-3">
-      <button type="submit" class="btn btn-primary">{{editing ? 'Update' : 'Add'}} Semester</button>
-    </div>
+    <!-- Your existing form code here -->
   </form>
 
-
-<div *ngIf="semesters">
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let semester of semesters">
-      <td>{{ semester.id }}</td>
-      <td>{{ semester.name }}</td>
-      <td>{{ semester.startDate | date }}</td>
-      <td>{{ semester.endDate | date }}</td>
-      <td><button (click)="selectSemester(semester)" class="btn btn-info">Edit</button></td>
-    </tr>
-    </tbody>
-  </table>
+  <div *ngIf="semesters">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="text-center">
+          ID
+          <button class="form-control" (click)="sort('id')">Sort</button>
+        </th>
+        <th class="text-center">
+          Name
+          <button class="form-control" (click)="sort('name')">Sort</button>
+        </th>
+        <th class="text-center">
+          Start Date
+          <button class="form-control" (click)="sort('startDate')">Sort</button>
+        </th>
+        <th class="text-center">
+          End Date
+          <button class="form-control" (click)="sort('endDate')">Sort</button>
+        </th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let semester of sortedSemesters()">
+        <td>{{ semester.id }}</td>
+        <td>{{ semester.name }}</td>
+        <td>{{ semester.startDate | date }}</td>
+        <td>{{ semester.endDate | date }}</td>
+        <td><button (click)="selectSemester(semester)" class="btn btn-info">Edit</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-</div>
-
