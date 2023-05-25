@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Instructor } from '../models/instructor';
 import { InstructorsService } from '../service/instructors.service';
-import { FormBuilder, FormGroup,ReactiveFormsModule } from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 @Component({
   selector: 'app-instructors',
   templateUrl: 'instructors.component.html',
@@ -27,7 +27,7 @@ export class InstructorsComponent implements OnInit {
 
   createInstructorForm() {
     this.instructorForm = this.fb.group({
-      neptunCode: '',
+      neptunCode: ['', [Validators.required, Validators.pattern('^[a-zA-Z][a-zA-Z0-9]{5}$')]],
       name: '',
       email: '',
       position: '',
