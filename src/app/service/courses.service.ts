@@ -22,5 +22,4 @@ export class CoursesService {
     return this.http.get<Course[]>(this.coursesUrl);
   }
 
-  // Add other methods like addCourse, updateCourse, and deleteCourse
 }

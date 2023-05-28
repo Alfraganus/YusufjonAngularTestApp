@@ -28,5 +28,4 @@ export class InstructorsService {
     return this.http.get<Instructor[]>(this.instructorsUrl);
   }
 
-  // Add other methods like addInstructor, updateInstructor, and deleteInstructor
 }

@@ -21,39 +21,33 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 3, neptunCode: 'A125', name: 'Bob Johnson', email: 'bob.johnson@example.com', position: 'lecturer' },
 
 
-      // more instructors
     ];
 
     const courses: Course[] = [
       { id: 1, name: 'Computer Science', code: 'CS101', creditValue: 4, responsibleDepartment: 'VIRT' },
       { id: 2, name: 'Discrete Mathematics', code: 'DM102', creditValue: 3, responsibleDepartment: 'Mathematics' },
-      // more courses
     ];
 
     const students: Student[] = [
       { id: 1, neptunCode: 'S123', name: 'Alice', email: 'alice@example.com', department: 'Computer Engineer Msc' },
       { id: 2, neptunCode: 'S124', name: 'Bob', email: 'bob@example.com', department: 'Computer Programmer Bsc' },
-      // more students
     ];
 
 
     const semesters: Semester[] = [
       { id: 1, name: '2022/23/1', startDate: new Date('2022-09-01'), endDate: new Date('2023-01-31') },
       { id: 2, name: '2022/23/2', startDate: new Date('2023-02-01'), endDate: new Date('2023-06-30') },
-      // more semesters
     ];
     const taughtCourses: TaughtCourse[] = [
       { id: 1, instructorId: 1, courseId: 2, semesterId: 1 },
       { id: 2, instructorId: 1, courseId: 2, semesterId: 1 },
       { id: 3, instructorId: 2, courseId: 1, semesterId: 2 },
-      // more taught courses
     ];
 
     const enrollments: Enrollment[] = [
       { id: 1, studentId: 1, courseId: 1, semesterId: 2 },
       { id: 2, studentId: 1, courseId: 2, semesterId: 1 },
       { id: 3, studentId: 2, courseId: 1, semesterId: 1 },
-      // more enrollments
     ];
     return {instructors, courses, students, semesters,taughtCourses,enrollments };
   }

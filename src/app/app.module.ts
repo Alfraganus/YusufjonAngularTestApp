@@ -21,7 +21,7 @@ import {StudentsService} from "./service/students.service";
 import {TaughtCoursesComponent} from "./taught-courses/taught-courses.component";
 import {StudentEnrollmentComponent} from "./student-enrollment/student.enrollment";
 import {RegisterComponent} from "./register/RegisterComponent";
-import {AuthInterceptorService} from "../auth-interceptor.service";
+import {AuthInterceptor} from "../auth-interceptor.service";
 
 const appRoutes: Routes = [
   { path: '', component: InstructorsComponent, canActivate: [AuthGuard] },
@@ -31,9 +31,7 @@ const appRoutes: Routes = [
   { path: 'taught-course', component: TaughtCoursesComponent, canActivate: [AuthGuard] },
   { path: 'student-enrollment', component: StudentEnrollmentComponent, canActivate: [AuthGuard] },
   { path: 'register-component', component: RegisterComponent},
- 
   { path: 'login', component: LoginComponent },
-  // other routes
 ];
 
 @NgModule({
@@ -60,7 +58,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
   ],
-  providers: [InstructorsService, CoursesService, StudentsService, SemestersService,InMemoryDataService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
+  providers: [InstructorsService, CoursesService, StudentsService, SemestersService,InMemoryDataService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
