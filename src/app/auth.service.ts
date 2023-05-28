@@ -46,7 +46,22 @@ export class AuthService {
       const base64UrlPayload = btoa(JSON.stringify(payload));
       const fakeToken = `${base64UrlHeader}.${base64UrlPayload}`;
       localStorage.setItem('token', fakeToken);
-      console.log(jwt_decode(fakeToken))
+
+      const registrationsString = localStorage.getItem('registrations');
+      if (registrationsString) {
+        const registrations = JSON.parse(registrationsString);
+        const user = registrations.find((user) => user.name === username );
+        if (user) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        } else {
+          localStorage.setItem('currentUser', null);
+        }
+      } else {
+        localStorage.setItem('currentUser', null);
+      }
+
+
+      console.log(localStorage.getItem('currentUser'))
       return of(fakeToken);
     } else {
       return of(null);

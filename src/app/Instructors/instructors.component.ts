@@ -1,8 +1,9 @@
 // instructors.component.ts
-import { Component, OnInit } from '@angular/core';
-import { Instructor } from '../models/instructor';
-import { InstructorsService } from '../service/instructors.service';
+import {Component, OnInit} from '@angular/core';
+import {Instructor} from '../models/instructor';
+import {InstructorsService} from '../service/instructors.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+
 @Component({
   selector: 'app-instructors',
   templateUrl: 'instructors.component.html',
@@ -14,8 +15,10 @@ export class InstructorsComponent implements OnInit {
   filteredInstructors: Instructor[];
   sortKey: keyof Instructor;
   sortDirection: 'asc' | 'desc' = 'asc';
+  hasAdmin: boolean;
 
-  constructor(private instructorsService: InstructorsService, private fb: FormBuilder) { }
+  constructor(private instructorsService: InstructorsService, private fb: FormBuilder) {
+  }
 
   instructorForm: FormGroup;
   selectedInstructor: Instructor;
@@ -32,6 +35,18 @@ export class InstructorsComponent implements OnInit {
       email: '',
       position: '',
     });
+  }
+
+  checkIfAdmin() {
+    var registered_users = localStorage.getItem('currentUser');
+    var userObject = JSON.parse(registered_users);
+    if (userObject.roles[0] && userObject.roles[0] == 'admin') {
+      console.log(registered_users)
+      console.log(userObject.roles[0] == 'admin')
+      return true
+    }
+    return false;
+
   }
 
   onSave() {
@@ -56,6 +71,7 @@ export class InstructorsComponent implements OnInit {
   ngOnInit() {
     this.getInstructors();
     this.createInstructorForm();
+    this.checkIfAdmin();
   }
 
   getInstructors(): void {

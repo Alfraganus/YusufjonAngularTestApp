@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import {AuthService} from "../auth.service";
 import {Role, User} from "../User";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ export class RegisterComponent {
   user: User;
   roles = Object.values(Role); // To populate roles dropdown
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private router: Router) {
     this.user = {
       dateOfBirth: new Date(),
       name: '',
@@ -25,8 +26,15 @@ export class RegisterComponent {
   register(): void {
     this.authService.register(this.user).subscribe(
       (user) => {
-        // Registration successful.
         console.log('Registration successful', user);
+        const registrationsString = localStorage.getItem('registrations');
+        let registrations = [];
+        if (registrationsString) {
+          registrations = JSON.parse(registrationsString);
+        }
+        registrations.push(user);
+        localStorage.setItem('registrations', JSON.stringify(registrations));
+        this.router.navigate(['/login']);
       },
       (error) => {
         // Handle error.

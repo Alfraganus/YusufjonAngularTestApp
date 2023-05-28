@@ -17,9 +17,12 @@
     <input [(ngModel)]="user.neptunCode" name="neptunCode" class="form-control" required />
   </div>
   <div class="form-group mt-3">
-    <label for="roles">Roles:</label>
+    <label for="roles">Role:</label>
+    <input [(ngModel)]="user.roles" name="neptunCode" class="form-control" required />
     <select [(ngModel)]="user.roles" name="roles" multiple class="form-control">
-      <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+      <option  [value]="'teacher'">Teacher</option>
+      <option  [value]="'student'">Student</option>
+      <option  [value]="'admin'">Admin</option>
     </select>
   </div>
   <button type="submit" class="btn btn-primary mt-3">Register</button>

@@ -1,81 +1,89 @@
 <!-- instructors.component.html -->
 <div class="container" style="padding-left: 100px;padding-right: 50px">
-  <h3>{{ selectedInstructor ? 'Update' : 'Create' }} Instructor</h3>
-  <form [formGroup]="instructorForm" (ngSubmit)="onSave()"  class="row g-3">
-    <div class="col-md-3">
-      <label for="neptunCode" class="form-label">Neptun Code:</label>
-      <input id="neptunCode" type="text" formControlName="neptunCode" class="form-control" [ngClass]="{'is-invalid': instructorForm.get('neptunCode').invalid && instructorForm.get('neptunCode').touched}" />
-      <div *ngIf="instructorForm.get('neptunCode') && instructorForm.get('neptunCode').touched">
-        <div *ngIf="instructorForm.get('neptunCode').hasError('required')" class="form-text text-danger">
-          Neptun Code is required
-        </div>
-        <div *ngIf="instructorForm.get('neptunCode').hasError('pattern')" class="form-text text-danger">
-          Neptun Code must start with a letter and be exactly 6 alphanumeric characters
+  <div *ngIf="checkIfAdmin()">
+    <h3>{{ selectedInstructor ? 'Update' : 'Create' }} Instructor</h3>
+    <form [formGroup]="instructorForm" (ngSubmit)="onSave()" class="row g-3">
+      <div class="col-md-3">
+        <label for="neptunCode" class="form-label">Neptun Code:</label>
+        <input id="neptunCode" type="text" formControlName="neptunCode" class="form-control"
+               [ngClass]="{'is-invalid': instructorForm.get('neptunCode').invalid && instructorForm.get('neptunCode').touched}"/>
+        <div *ngIf="instructorForm.get('neptunCode') && instructorForm.get('neptunCode').touched">
+          <div *ngIf="instructorForm.get('neptunCode').hasError('required')" class="form-text text-danger">
+            Neptun Code is required
+          </div>
+          <div *ngIf="instructorForm.get('neptunCode').hasError('pattern')" class="form-text text-danger">
+            Neptun Code must start with a letter and be exactly 6 alphanumeric characters
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-3">
-      <label for="name" class="form-label">Name:</label>
-      <input id="name" type="text" formControlName="name" class="form-control">
-    </div>
-    <div class="col-md-3">
-      <label for="email" class="form-label">Email:</label>
-      <input id="email" type="email" formControlName="email" class="form-control">
-    </div>
-    <div class="col-md-3">
-      <label for="position" class="form-label">Position:</label>
-      <input id="position" type="text" formControlName="position" class="form-control">
-    </div>
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary" [disabled]="!instructorForm.valid">Save</button>
-    </div>
-  </form>
+      <div class="col-md-3">
+        <label for="name" class="form-label">Name:</label>
+        <input id="name" type="text" formControlName="name" class="form-control">
+      </div>
+      <div class="col-md-3">
+        <label for="email" class="form-label">Email:</label>
+        <input id="email" type="email" formControlName="email" class="form-control">
+      </div>
+      <div class="col-md-3">
+        <label for="position" class="form-label">Position:</label>
+        <input id="position" type="text" formControlName="position" class="form-control">
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" [disabled]="!instructorForm.valid">Save</button>
+      </div>
+    </form>
+    <hr>
 
-  <hr>
+  </div>
 
-<h2 class="text-center">Instructors</h2>
-<div class="container">
-  <table class="table">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>
-        Neptun code
-        <input class="form-control" (input)="onFilterChange($any($event.target).value, 'neptunCode')" placeholder="Filter by Neptun code">
-        <button class="form-control"  (click)="onSortChange('neptunCode')">Sort</button>
-      </th>
-      <th>
-        Name
-        <input class="form-control"  (input)="onFilterChange($any($event.target).value, 'name')" placeholder="Filter by name">
-        <button class="form-control"  (click)="onSortChange('name')">Sort</button>
-      </th>
-      <th>
-        Email
-        <input class="form-control"  (input)="onFilterChange($any($event.target).value, 'email')" placeholder="Filter by email">
-        <button class="form-control"  (click)="onSortChange('email')">Sort</button>
-      </th>
-      <th>
-        Position
-        <input class="form-control"  (input)="onFilterChange($any($event.target).value, 'position')" placeholder="Filter by position">
-        <button class="form-control"  (click)="onSortChange('position')">Sort</button>
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let instructor of filteredInstructors">
-      <td>{{ instructor.id }}</td>
-      <td>{{ instructor.neptunCode }}</td>
-      <td>{{ instructor.name }}</td>
-      <td>{{ instructor.email }}</td>
-      <td>{{ instructor.position }}</td>
-      <td>
-        <button class="btn btn-primary m-2" (click)="onEdit(instructor)">Update</button>
-        <button class="btn btn-danger" (click)="onDelete
-        (instructor.id)">Delete</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+  <h2 class="text-center">Instructors</h2>
+  <div class="container">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>
+          Neptun code
+          <input class="form-control" (input)="onFilterChange($any($event.target).value, 'neptunCode')"
+                 placeholder="Filter by Neptun code">
+          <button class="form-control" (click)="onSortChange('neptunCode')">Sort</button>
+        </th>
+        <th>
+          Name
+          <input class="form-control" (input)="onFilterChange($any($event.target).value, 'name')"
+                 placeholder="Filter by name">
+          <button class="form-control" (click)="onSortChange('name')">Sort</button>
+        </th>
+        <th>
+          Email
+          <input class="form-control" (input)="onFilterChange($any($event.target).value, 'email')"
+                 placeholder="Filter by email">
+          <button class="form-control" (click)="onSortChange('email')">Sort</button>
+        </th>
+        <th>
+          Position
+          <input class="form-control" (input)="onFilterChange($any($event.target).value, 'position')"
+                 placeholder="Filter by position">
+          <button class="form-control" (click)="onSortChange('position')">Sort</button>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let instructor of filteredInstructors">
+        <td>{{ instructor.id }}</td>
+        <td>{{ instructor.neptunCode }}</td>
+        <td>{{ instructor.name }}</td>
+        <td>{{ instructor.email }}</td>
+        <td>{{ instructor.position }}</td>
+        <td>
+          <button class="btn btn-primary m-2" (click)="onEdit(instructor)">Update</button>
+          <button class="btn btn-danger" (click)="onDelete
+        (instructor.id)">Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
