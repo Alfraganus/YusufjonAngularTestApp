@@ -76,12 +76,14 @@
         <td>{{ instructor.name }}</td>
         <td>{{ instructor.email }}</td>
         <td>{{ instructor.position }}</td>
+        <div *ngIf="checkIfAdmin()">
         <td>
           <button class="btn btn-primary m-2" (click)="onEdit(instructor)">Update</button>
           <button class="btn btn-danger" (click)="onDelete
         (instructor.id)">Delete
           </button>
         </td>
+        </div>
       </tr>
       </tbody>
     </table>

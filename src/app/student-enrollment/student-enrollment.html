@@ -1,5 +1,6 @@
 <!-- src/app/student/student.component.html -->
 <div style="margin-left: 100px;margin-outside: 100px">
+  <div *ngIf="checkIfAdmin()">
   <form (submit)="onSubmit(form.value)" #form="ngForm">
     <div class="row">
       <div class="form-group col-md-3">
@@ -27,7 +28,7 @@
       </div>
     </div>
   </form>
-
+  </div>
 <div class="table-responsive" style="margin-top: 60px">
   <table class="table table-bordered table-hover">
     <thead>

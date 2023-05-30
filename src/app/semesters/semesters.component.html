@@ -25,7 +25,7 @@
           End Date
           <button class="form-control" (click)="sort('endDate')">Sort</button>
         </th>
-        <th>Action</th>
+        <th *ngIf="checkIfAdmin()">Action</th>
       </tr>
       </thead>
       <tbody>
@@ -34,7 +34,7 @@
         <td>{{ semester.name }}</td>
         <td>{{ semester.startDate | date }}</td>
         <td>{{ semester.endDate | date }}</td>
-        <td><button (click)="selectSemester(semester)" class="btn btn-info">Edit</button></td>
+        <td *ngIf="checkIfAdmin()"><button (click)="selectSemester(semester)" class="btn btn-info">Edit</button></td>
       </tr>
       </tbody>
     </table>

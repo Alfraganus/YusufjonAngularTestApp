@@ -25,7 +25,20 @@ export class StudentEnrollmentComponent implements OnInit { // updated component
     private studentsService: StudentsService,
     private inMemoryDataService: InMemoryDataService
   ) {}
+  checkIfAdmin() {
+    var registered_users = localStorage.getItem('currentUser');
 
+    if(registered_users) {
+      var userObject = JSON.parse(registered_users);
+      // Check if userObject is not null, roles exist and it's an array
+      if(userObject && userObject.roles && Array.isArray(userObject.roles) && userObject.roles.includes('admin')) {
+        console.log(registered_users);
+        console.log(userObject.roles.includes('admin'));
+        return true;
+      }
+    }
+    return false;
+  }
   onSubmit(formValue: any): void {
     // Generate a new id for the enrollment
     const enrollments = this.inMemoryDataService.createDb().enrollments;

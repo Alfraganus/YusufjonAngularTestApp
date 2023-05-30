@@ -1,4 +1,5 @@
 <div style="padding-left: 100px;padding-right: 100px">
+  <div *ngIf="checkIfAdmin()">
   <form (ngSubmit)="createCourse(name.value, code.value, parseInt(creditValue.value), responsibleDepartment.value); name.value=''; code.value=''; creditValue.value=''; responsibleDepartment.value=''" class="row">
     <div class="col-md-3">
       <div class="form-group">
@@ -28,7 +29,7 @@
       <button type="submit" class="btn btn-primary">Create Course</button>
     </div>
   </form>
-
+  </div>
   <h2 class="text-center">Courses</h2>
 <div *ngIf="courses">
   <table class="table table-striped">
@@ -56,7 +57,7 @@
         Responsible Department
         <button class="form-control"  (click)="sort('responsibleDepartment')">Sort</button>
       </th>
-      <th>Actions</th>
+      <th *ngIf="checkIfAdmin()">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -78,7 +79,7 @@
         <td>{{ course.code }}</td>
         <td>{{ course.creditValue }}</td>
         <td>{{ course.responsibleDepartment }}</td>
-        <td>
+        <td *ngIf="checkIfAdmin()">
           <button (click)="toggleEditForm(course)" class="btn btn-primary">Edit</button>
         </td>
       </ng-template>

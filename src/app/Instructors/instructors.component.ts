@@ -39,15 +39,21 @@ export class InstructorsComponent implements OnInit {
 
   checkIfAdmin() {
     var registered_users = localStorage.getItem('currentUser');
-    var userObject = JSON.parse(registered_users);
-    if (userObject.roles[0] && userObject.roles[0] == 'admin') {
-      console.log(registered_users)
-      console.log(userObject.roles[0] == 'admin')
-      return true
+
+    if(registered_users) {
+      var userObject = JSON.parse(registered_users);
+      // Check if userObject is not null, roles exist and it's an array
+      if(userObject && userObject.roles && Array.isArray(userObject.roles) && userObject.roles.includes('admin')) {
+        console.log(registered_users);
+        console.log(userObject.roles.includes('admin'));
+        return true;
+      }
     }
     return false;
-
   }
+
+
+
 
   onSave() {
     if (this.selectedInstructor) {

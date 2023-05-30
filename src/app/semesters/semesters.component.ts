@@ -27,7 +27,20 @@ export class SemestersComponent implements OnInit {
     this.sortKey = key;
     this.semesters.sort(this.compare);
   }
+  checkIfAdmin() {
+    var registered_users = localStorage.getItem('currentUser');
 
+    if(registered_users) {
+      var userObject = JSON.parse(registered_users);
+      // Check if userObject is not null, roles exist and it's an array
+      if(userObject && userObject.roles && Array.isArray(userObject.roles) && userObject.roles.includes('admin')) {
+        console.log(registered_users);
+        console.log(userObject.roles.includes('admin'));
+        return true;
+      }
+    }
+    return false;
+  }
   compare = (a, b) => {
     if (a[this.sortKey] < b[this.sortKey]) return this.sortReverse ? 1 : -1;
     if (a[this.sortKey] > b[this.sortKey]) return this.sortReverse ? -1 : 1;

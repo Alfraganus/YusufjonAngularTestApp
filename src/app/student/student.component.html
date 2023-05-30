@@ -2,7 +2,8 @@
 <div  style="margin-left: 100px">
 <div class="container">
   <!-- Add this form for adding new students -->
-  <form #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)" class="py-5">
+  <form  #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)" class="py-5" >
+    <div *ngIf="checkIfAdmin()">
     <div class="row">
       <div class="form-group col">
         <label for="neptunCode">Neptun Code</label>
@@ -25,6 +26,7 @@
       </div>
     </div>
     <button type="submit" [disabled]="!studentForm.valid" class="btn btn-primary mt-3">Add Student</button>
+    </div>
   </form>
 
 
@@ -54,7 +56,7 @@
           Department
           <button class="form-control" (click)="sort('department')">Sort</button>
         </th>
-        <th>Actions</th>
+        <th *ngIf="checkIfAdmin()">Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -65,7 +67,7 @@
           <td>{{ student.name }}</td>
           <td>{{ student.email }}</td>
           <td>{{ student.department }}</td>
-          <td>
+          <td *ngIf="checkIfAdmin()">
             <button (click)="editingStates.set(student.id, true)" class="btn btn-secondary">Edit</button>
           </td>
         </ng-container>
@@ -88,7 +90,7 @@
           <td>
             <input type="text" [(ngModel)]="student.department" name="department" required class="form-control" />
           </td>
-          <td>
+          <td *ngIf="checkIfAdmin()">
             <button (click)="onUpdate(studentForm, student.id); editingStates.set(student.id, false)" class="btn btn-success">Save</button>
             <button (click)="editingStates.set(student.id, false)" class="btn btn-danger">Cancel</button>
           </td>
