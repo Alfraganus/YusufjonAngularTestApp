@@ -2,6 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Semester } from '../models/semester';
 import {SemestersService} from "../service/semesters.service";
+import {CoursesService} from "../service/courses.service";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-semesters',
@@ -13,8 +15,15 @@ export class SemestersComponent implements OnInit {
   editing = false;
   sortKey: string = '';
   sortReverse: boolean = false;
-  constructor(private semestersService: SemestersService) { }
+  currentUser: any;
 
+
+  constructor(private semestersService: SemestersService, private userService: AuthService) {
+    this.userService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      console.log(this.currentUser)
+    });
+  }
   ngOnInit() {
     this.getSemesters();
   }

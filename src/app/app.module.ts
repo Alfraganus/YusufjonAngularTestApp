@@ -22,6 +22,7 @@ import {TaughtCoursesComponent} from "./taught-courses/taught-courses.component"
 import {StudentEnrollmentComponent} from "./student-enrollment/student.enrollment";
 import {RegisterComponent} from "./register/RegisterComponent";
 import {AuthInterceptor} from "../auth-interceptor.service";
+import {UserListComponent} from "./user-list/UserListComponent";
 
 const appRoutes: Routes = [
   { path: '', component: InstructorsComponent, canActivate: [AuthGuard] },
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'student', component: StudentsComponent, canActivate: [AuthGuard] },
   { path: 'taught-course', component: TaughtCoursesComponent, canActivate: [AuthGuard] },
   { path: 'student-enrollment', component: StudentEnrollmentComponent, canActivate: [AuthGuard] },
+  { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'register-component', component: RegisterComponent},
   { path: 'login', component: LoginComponent },
 ];
@@ -46,6 +48,7 @@ const appRoutes: Routes = [
     HeaderComponent,
     StudentEnrollmentComponent,
     InstructorsComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {Instructor} from '../models/instructor';
 import {InstructorsService} from '../service/instructors.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {CoursesService} from "../service/courses.service";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-instructors',
@@ -16,8 +18,12 @@ export class InstructorsComponent implements OnInit {
   sortKey: keyof Instructor;
   sortDirection: 'asc' | 'desc' = 'asc';
   hasAdmin: boolean;
-
-  constructor(private instructorsService: InstructorsService, private fb: FormBuilder) {
+  currentUser: any;
+  constructor(private instructorsService: InstructorsService, private fb: FormBuilder, private userService: AuthService) {
+    this.userService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      console.log(this.currentUser)
+    });
   }
 
   instructorForm: FormGroup;

@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from '../models/student';
 import { StudentsService } from '../service/students.service';
 import { NgForm } from '@angular/forms';
+import {SemestersService} from "../service/semesters.service";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-students',
@@ -14,8 +16,14 @@ export class StudentsComponent implements OnInit {
   editingStates: Map<number, boolean> = new Map<number, boolean>(); // Add this line
   sortKey: string = '';
   sortDirection: number = 1;  // 1 for ascending, -1 for descendin
-  constructor(private studentsService: StudentsService) {}
+  currentUser: any;
 
+  constructor(private studentsService: StudentsService, private userService: AuthService) {
+    this.userService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      console.log(this.currentUser)
+    });
+  }
   onSubmit(form: NgForm): void {
     const newStudent: Student = form.value;
     this.studentsService.addStudent(newStudent).subscribe((student) => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {User} from "./User";
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
@@ -7,7 +7,14 @@ import jwt_decode from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
+  private currentUserSubject = new BehaviorSubject<any>(this.getInitialUser());
 
+  currentUser$ = this.currentUserSubject.asObservable();
+
+  private getInitialUser() {
+    let user = localStorage.getItem('currentUser');
+    return user ? JSON.parse(user) : null;
+  }
   private users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
   constructor(private router: Router) {}
   register(user: User): Observable<User> {

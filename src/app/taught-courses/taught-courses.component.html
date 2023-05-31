@@ -2,15 +2,15 @@
 <!-- ... -->
 
   <h2 class="text-center">Select dropdown for getting the data</h2>
-  <div class="dropdown-container">
+  <div class="dropdown-container" style="margin: 0 150px 0 150px">
     <label for="instructor">Instructor:</label>
-    <select id="instructor" [(ngModel)]="selectedInstructorId" (ngModelChange)="onInstructorChange(selectedInstructorId)">
+    <select id="instructor" class="form-control" [(ngModel)]="selectedInstructorId" (ngModelChange)="onInstructorChange(selectedInstructorId)">
       <option value="">Select an instructor</option>
       <option *ngFor="let instructor of instructors" [value]="instructor.id">{{ instructor.name }}</option>
     </select>
 
     <label for="semester">Semester:</label>
-    <select id="semester" [(ngModel)]="selectedSemesterId" (ngModelChange)="onSemesterChange(selectedSemesterId)">
+    <select id="semester" class="form-control" [(ngModel)]="selectedSemesterId" (ngModelChange)="onSemesterChange(selectedSemesterId)">
       <option value="">Select a semester</option>
       <option *ngFor="let semester of semesters" [value]="semester.id">{{ semester.name }}</option>
     </select>

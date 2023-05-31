@@ -4,6 +4,7 @@ import { Course } from '../models/course';
 import {CoursesService} from "../service/courses.service";
 import {Observable} from "rxjs";
 import {Instructor} from "../models/instructor";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-course',
@@ -22,10 +23,14 @@ export class CourseComponent implements OnInit {
   sortKey: string;
   sortReverse: boolean = false;
 
+  currentUser: any;
 
-
-  constructor(private coursesService: CoursesService) { }
-
+  constructor(private coursesService: CoursesService, private userService: AuthService) {
+    this.userService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      console.log(this.currentUser)
+    });
+  }
   ngOnInit() {
     this.getCourses();
   }

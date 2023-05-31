@@ -6,6 +6,7 @@ import { StudentsService } from '../service/students.service';
 import { InMemoryDataService } from '../in-memory-data.service';
 import {Semester} from "../models/semester";
 import {Enrollment} from "../models/enrollment";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-student-enrollment', // updated component selector
@@ -20,11 +21,19 @@ export class StudentEnrollmentComponent implements OnInit { // updated component
   semesters: Semester[];
   filteredCourses: Course[];
   courseStudentsMap: Map<number, Student[]> = new Map();
-
+  currentUser: any;
   constructor(
     private studentsService: StudentsService,
-    private inMemoryDataService: InMemoryDataService
-  ) {}
+    private inMemoryDataService: InMemoryDataService,
+    private userService: AuthService
+  ) {
+    this.userService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      console.log(this.currentUser)
+    });
+  }
+
+
   checkIfAdmin() {
     var registered_users = localStorage.getItem('currentUser');
 
